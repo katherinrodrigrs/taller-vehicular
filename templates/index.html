@@ -1,0 +1,52 @@
+<div class="logo">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Taller">
+</div>
+
+<h1>TALLER AUTOMOTRIZ</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Taller Automotriz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+
+    <div class="contenedor">
+
+        <h1>TALLER AUTOMOTRIZ</h1>
+
+        <form>
+
+            <label>Fecha</label>
+            <input type="date">
+
+            <label>Placa</label>
+            <input type="text" placeholder="Ingrese placa">
+
+            <label>Modelo</label>
+            <input type="text" placeholder="Ingrese modelo">
+
+            <label>Diagnóstico</label>
+            <textarea placeholder="Ingrese diagnóstico"></textarea>
+
+            <label>Estado</label>
+            <select>
+                <option>Pendiente</option>
+                <option>En Proceso</option>
+                <option>Atendido</option>
+            </select>
+
+            <label>Monto del Servicio</label>
+            <input type="number" placeholder="S/.">
+
+            <button type="submit">
+                Guardar Registro
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
