@@ -63,6 +63,8 @@ def crear_tabla():
     conn.commit()
     conn.close()
 
+# Ejecutar siempre al iniciar la app, también en Render
+crear_tabla()
 
 # -------------------
 # LOGIN
@@ -499,5 +501,4 @@ def dashboard():
 # EJECUTAR APP
 # -------------------
 if __name__ == "__main__":
-    crear_tabla()
     app.run(debug=True)
