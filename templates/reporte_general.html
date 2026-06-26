@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte General</title>
+
+<style>
+
+    body{
+        font-family:'Segoe UI',sans-serif;
+        background:#f4f6f9;
+        padding:30px;
+    }
+
+    .contenedor{
+        background:white;
+        padding:25px;
+        border-radius:15px;
+        box-shadow:0 5px 20px rgba(0,0,0,.1);
+    }
+
+    h2{
+        color:#ff6b00;
+        margin-bottom:20px;
+    }
+
+    .acciones-superiores{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:20px;
+        flex-wrap:wrap;
+        gap:10px;
+    }
+
+    form{
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+    }
+
+    input,
+    select{
+        padding:10px;
+        border:1px solid #ccc;
+        border-radius:8px;
+    }
+
+    button{
+        padding:10px 15px;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+        font-weight:bold;
+    }
+
+    .btn-filtrar{
+        background:#ff6b00;
+        color:white;
+    }
+
+    .btn-excel{
+        background:#28a745;
+        color:white;
+        text-decoration:none;
+        padding:10px 15px;
+        border-radius:8px;
+    }
+
+    table{
+        width:100%;
+        border-collapse:collapse;
+        margin-top:20px;
+    }
+
+    th{
+        background:#ff6b00;
+        color:white;
+        padding:12px;
+    }
+
+    td{
+        padding:10px;
+        border:1px solid #ddd;
+        text-align:center;
+    }
+
+    tr:nth-child(even){
+        background:#f9f9f9;
+    }
+
+    .btn-editar{
+        background:#007bff;
+        color:white;
+        padding:6px 10px;
+        border-radius:5px;
+        text-decoration:none;
+    }
+
+    .btn-eliminar{
+        background:#dc3545;
+        color:white;
+        padding:6px 10px;
+        border-radius:5px;
+        text-decoration:none;
+    }
+
+    .volver{
+        display:inline-block;
+        margin-top:20px;
+        text-decoration:none;
+        color:#ff6b00;
+        font-weight:bold;
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+<h2>📋 Reporte General de Vehículos</h2>
+
+<div class="acciones-superiores">
+
+<form method="POST">
+
+<input
+    type="date"
+    name="fecha"
+    value="{{ fecha if fecha else '' }}"
+>
+
+<select name="estado">
+
+    <option value="">Todos</option>
+    <option value="Pendiente">Pendiente</option>
+    <option value="En Proceso">En Proceso</option>
+    <option value="Atendido">Atendido</option>
+
+</select>
+
+<button
+    type="submit"
+    class="btn-filtrar"
+>
+    Filtrar
+</button>
+
+</form>
+
+<a
+href="/exportar_excel"
+class="btn-excel">
+📥 Exportar Excel </a>
+
+</div>
+
+<table>
+
+<tr>
+
+<th>Fecha</th>
+<th>Placa</th>
+<th>Cliente</th>
+<th>Modelo</th>
+<th>Diagnóstico</th>
+<th>Estado</th>
+<th>Monto</th>
+<th>Acciones</th>
+
+</tr>
+
+{% for fila in datos %}
+
+<tr>
+
+<td>{{ fila[1] }}</td>
+<td>{{ fila[2] }}</td>
+<td>{{ fila[3] }}</td>
+<td>{{ fila[4] }}</td>
+<td>{{ fila[5] }}</td>
+<td>{{ fila[6] }}</td>
+<td>S/. {{ fila[7] }}</td>
+
+<td>
+
+    <a
+    href="/editar/{{ fila[0] }}"
+    class="btn-editar">
+    ✏️
+    </a>
+
+    <a
+    href="/eliminar/{{ fila[0] }}"
+    class="btn-eliminar"
+    onclick="return confirm('¿Eliminar este registro?')">
+    🗑️
+    </a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<a href="/" class="volver">
+⬅ Volver al sistema
+</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<div class="titulo-verde">
+    Estadística - Estado de vehículos
+</div>
+
+<div class="panel-filtros">
+    <form method="GET" action="{{ url_for('estado_vehiculos') }}">
+
+        <div>
+            <label>Filtro</label>
+            <select name="filtro">
+                <option value="dia" {% if filtro == 'dia' %}selected{% endif %}>Por día</option>
+                <option value="semana" {% if filtro == 'semana' %}selected{% endif %}>Por semana</option>
+                <option value="mes" {% if filtro == 'mes' %}selected{% endif %}>Por mes</option>
+            </select>
+        </div>
+
+        <div class="botones-filtro">
+            <button type="submit">Aplicar filtro</button>
+        </div>
+
+    </form>
+</div>
+
+<div class="grid-graficos">
+
+    <div class="tarjeta-grafico">
+        <h3>Estado por período</h3>
+        <canvas id="graficoBarras"></canvas>
+    </div>
+
+    <div class="tarjeta-grafico">
+        <h3>Porcentaje por estado</h3>
+        <canvas id="graficoPastel"></canvas>
+    </div>
+
+</div>
+
+<script>
+const periodos = {{ periodos | tojson }};
+const datasets = {{ datasets | tojson }};
+const labelsPastel = {{ labels_pastel | tojson }};
+const valoresPastel = {{ valores_pastel | tojson }};
+
+const colores = [
+    '#1e73ff',
+    '#ff9800',
+    '#4caf50',
+    '#e53935',
+    '#9c27b0',
+    '#00acc1'
+];
+
+datasets.forEach((dataset, index) => {
+    dataset.backgroundColor = colores[index % colores.length];
+    dataset.borderRadius = 8;
+});
+
+new Chart(document.getElementById('graficoBarras'), {
+    type: 'bar',
+    data: {
+        labels: periodos,
+        datasets: datasets
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    precision: 0
+                }
+            }
+        }
+    }
+});
+
+new Chart(document.getElementById('graficoPastel'), {
+    type: 'pie',
+    data: {
+        labels: labelsPastel,
+        datasets: [{
+            data: valoresPastel,
+            backgroundColor: colores
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let total = context.dataset.data.reduce((a, b) => a + b, 0);
+                        let valor = context.raw;
+                        let porcentaje = total > 0 ? ((valor / total) * 100).toFixed(1) : 0;
+                        return context.label + ': ' + valor + ' vehículos (' + porcentaje + '%)';
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+
+{% endblock %}

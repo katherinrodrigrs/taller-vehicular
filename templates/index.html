@@ -1,52 +1,65 @@
-<div class="logo">
-      <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Taller">
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<div class="titulo-pagina">
+    <i class="fa-regular fa-clipboard"></i>
+    Registro de datos
 </div>
 
-<h1>TALLER AUTOMOTRIZ</h1>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Taller Automotriz</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
-</head>
-<body>
+<div class="card-formulario">
 
-    <div class="contenedor">
+    <form action="{{ url_for('guardar') }}" method="POST">
 
-        <h1>TALLER AUTOMOTRIZ</h1>
-
-        <form>
-
+        <div class="fila-form">
             <label>Fecha</label>
-            <input type="date">
+            <input type="date" name="fecha" required>
+        </div>
 
+        <div class="fila-form">
             <label>Placa</label>
-            <input type="text" placeholder="Ingrese placa">
+            <input type="text" name="placa" placeholder="Ej. ABC-123" required>
+        </div>
 
+        <div class="fila-form">
+            <label>Cliente</label>
+            <input type="text" name="cliente" placeholder="Nombre del cliente" required>
+        </div>
+
+        <div class="fila-form">
             <label>Modelo</label>
-            <input type="text" placeholder="Ingrese modelo">
+            <input type="text" name="modelo" placeholder="Ej. Toyota Corolla 2020" required>
+        </div>
 
+        <div class="fila-form">
             <label>Diagnóstico</label>
-            <textarea placeholder="Ingrese diagnóstico"></textarea>
+            <textarea name="diagnostico" placeholder="Descripción del diagnóstico" required></textarea>
+        </div>
 
-            <label>Estado</label>
-            <select>
-                <option>Pendiente</option>
-                <option>En Proceso</option>
-                <option>Atendido</option>
+        <div class="fila-form">
+            <label>Estado del vehículo</label>
+            <select name="estado" required>
+                <option value="Pendiente">Pendiente</option>
+                <option value="En proceso">En proceso</option>
+                <option value="Terminado">Terminado</option>
+                <option value="Entregado">Entregado</option>
             </select>
+        </div>
 
-            <label>Monto del Servicio</label>
-            <input type="number" placeholder="S/.">
+        <div class="fila-form">
+            <label>Monto del servicio</label>
+            <input type="number" name="monto" step="0.01" placeholder="Ej. 1500.00" required>
+        </div>
 
-            <button type="submit">
-                Guardar Registro
-            </button>
+        <div class="separador"></div>
 
-        </form>
+        <button class="btn-guardar" type="submit">
+            <i class="fa-regular fa-floppy-disk"></i>
+            Guardar Registro
+        </button>
 
-    </div>
+    </form>
 
-</body>
-</html>
+</div>
+
+{% endblock %}

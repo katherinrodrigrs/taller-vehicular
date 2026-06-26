@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<div class="titulo-verde">
+    Estadística - Ingreso de vehículos
+</div>
+
+<div class="panel-filtros">
+    <form method="GET" action="{{ url_for('ingreso_vehiculos') }}">
+
+        <div>
+            <label>Filtro</label>
+            <select name="filtro">
+                <option value="dia" {% if filtro == 'dia' %}selected{% endif %}>Por día</option>
+                <option value="semana" {% if filtro == 'semana' %}selected{% endif %}>Por semana</option>
+                <option value="mes" {% if filtro == 'mes' %}selected{% endif %}>Por mes</option>
+            </select>
+        </div>
+
+        <div class="botones-filtro">
+            <button type="submit">Aplicar filtro</button>
+        </div>
+
+    </form>
+</div>
+
+<div class="tarjeta-grafico">
+    <h3>Vehículos ingresados</h3>
+    <canvas id="graficoIngreso"></canvas>
+</div>
+
+<script>
+const labels = {{ labels | tojson }};
+const valores = {{ valores | tojson }};
+
+new Chart(document.getElementById('graficoIngreso'), {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Cantidad de vehículos',
+            data: valores,
+            backgroundColor: '#1e73ff',
+            borderRadius: 8
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    precision: 0
+                }
+            }
+        }
+    }
+});
+</script>
+
+{% endblock %}

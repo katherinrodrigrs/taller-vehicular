@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Taller Vehicular</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        *{box-sizing:border-box}
+
+        body{
+            margin:0;
+            font-family:Arial, Helvetica, sans-serif;
+            background:#f3f4f6;
+            color:#111827;
+        }
+
+        .topbar{
+            height:65px;
+            background:#f06b2b;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0 30px;
+            box-shadow:0 3px 10px rgba(0,0,0,.2);
+        }
+
+        .topbar-title{
+            font-size:25px;
+            font-weight:bold;
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .topbar-title i{
+            font-size:32px;
+        }
+
+        .btn-salir{
+            color:white;
+            text-decoration:none;
+            border:1px solid white;
+            padding:10px 18px;
+            border-radius:8px;
+            font-weight:bold;
+        }
+
+        .contenedor-panel{
+            display:flex;
+            min-height:calc(100vh - 65px);
+        }
+
+        .sidebar{
+            width:280px;
+            background:#f06b2b;
+            padding:40px 22px;
+            color:white;
+        }
+
+        .menu-bloque{
+            background:#86c943;
+            padding:15px;
+            border-radius:8px;
+            margin-bottom:10px;
+            font-weight:bold;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            cursor:pointer;
+            box-shadow:0 4px 10px rgba(0,0,0,.2);
+        }
+
+        .submenu{
+            display:none;
+            margin-bottom:28px;
+            border-radius:8px;
+            overflow:hidden;
+        }
+
+        .submenu.abierto{
+            display:block;
+        }
+
+        .submenu a{
+            display:block;
+            color:white;
+            text-decoration:none;
+            padding:14px 18px;
+            font-weight:bold;
+            background:#c55317;
+            border-left:5px solid transparent;
+        }
+
+        .submenu a:hover{
+            background:#a94210;
+            border-left:5px solid #86c943;
+        }
+
+        .contenido{
+            flex:1;
+            padding:35px 50px;
+            background:linear-gradient(#ffffff,#f3f4f6);
+        }
+
+        .titulo-pagina{
+            width:80%;
+            margin:0 auto 28px auto;
+            background:#76bd3f;
+            color:white;
+            padding:18px;
+            border-radius:9px;
+            font-size:26px;
+            font-weight:bold;
+            text-align:center;
+            box-shadow:0 5px 14px rgba(0,0,0,.16);
+        }
+
+        .card-formulario{
+            width:80%;
+            margin:0 auto;
+            background:white;
+            border-radius:12px;
+            padding:32px 40px;
+            box-shadow:0 8px 24px rgba(0,0,0,.18);
+        }
+
+        .fila-form{
+            display:grid;
+            grid-template-columns:190px 1fr;
+            gap:20px;
+            align-items:center;
+            margin-bottom:18px;
+        }
+
+        .fila-form label{
+            font-weight:bold;
+        }
+
+        .fila-form input,
+        .fila-form select,
+        .fila-form textarea{
+            width:100%;
+            background:#002766;
+            color:white;
+            border:none;
+            border-radius:8px;
+            padding:14px;
+            font-size:15px;
+        }
+
+        .fila-form textarea{
+            height:95px;
+            resize:none;
+        }
+
+        .fila-form input::placeholder,
+        .fila-form textarea::placeholder{
+            color:#cbd5e1;
+        }
+
+        .separador{
+            height:1px;
+            background:#ddd;
+            margin:25px 0;
+        }
+
+        .btn-guardar{
+            width:48%;
+            margin:0 auto;
+            display:block;
+            background:#176df2;
+            color:white;
+            border:none;
+            padding:15px;
+            border-radius:8px;
+            font-size:17px;
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+        .btn-guardar:hover{
+            background:#075ee0;
+        }
+
+        .mensaje{
+            width:80%;
+            margin:0 auto 20px auto;
+            background:#e1f5dc;
+            color:#247421;
+            padding:13px;
+            border-radius:8px;
+            font-weight:bold;
+            text-align:center;
+        }
+
+        .panel-filtros{
+            background:white;
+            padding:20px;
+            border-radius:12px;
+            margin-bottom:20px;
+            box-shadow:0 7px 18px rgba(0,0,0,.12);
+        }
+
+        .panel-filtros form{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:15px;
+        }
+
+        .panel-filtros input,
+        .panel-filtros select{
+            width:100%;
+            background:#002766;
+            color:white;
+            border:none;
+            border-radius:8px;
+            padding:12px;
+        }
+
+        .panel-filtros button{
+            background:#176df2;
+            color:white;
+            border:none;
+            border-radius:8px;
+            padding:12px;
+            font-weight:bold;
+        }
+
+        .btn-excel,.btn-limpiar,.btn-editar,.btn-eliminar{
+            display:inline-block;
+            color:white;
+            text-decoration:none;
+            padding:8px 12px;
+            border-radius:6px;
+            font-weight:bold;
+            font-size:13px;
+        }
+
+        .btn-excel{background:#198754;margin-bottom:15px}
+        .btn-limpiar{background:#777}
+        .btn-editar{background:#0d6efd}
+        .btn-eliminar{background:#dc3545}
+
+        .tabla-contenedor{
+            background:white;
+            padding:18px;
+            border-radius:12px;
+            box-shadow:0 7px 18px rgba(0,0,0,.12);
+            overflow-x:auto;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th{
+            background:#002766;
+            color:white;
+            padding:12px;
+        }
+
+        td{
+            padding:10px;
+            border-bottom:1px solid #ddd;
+            text-align:center;
+        }
+
+        .tarjeta-grafico{
+            background:white;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0 7px 18px rgba(0,0,0,.12);
+        }
+
+        .grid-graficos{
+            display:grid;
+            grid-template-columns:1.4fr 1fr;
+            gap:25px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="topbar-title">
+        <i class="fa-solid fa-car-side"></i>
+        SERVICIO AUTOMOTRIZ
+    </div>
+
+    <a class="btn-salir" href="{{ url_for('logout') }}">
+        Cerrar Sesión
+    </a>
+</header>
+
+<div class="contenedor-panel">
+
+    <aside class="sidebar">
+
+        <div class="menu-bloque" onclick="abrirMenu('menuRegistro')">
+            <span>REGISTRO</span>
+            <span>▼</span>
+        </div>
+
+        <div id="menuRegistro" class="submenu abierto">
+            <a href="{{ url_for('lista') }}">Registro de datos</a>
+        </div>
+
+        <div class="menu-bloque" onclick="abrirMenu('menuReportes')">
+            <span>REPORTES</span>
+            <span>▼</span>
+        </div>
+
+        <div id="menuReportes" class="submenu abierto">
+            <a href="{{ url_for('reporte_general') }}">Reporte general</a>
+        </div>
+
+        <div class="menu-bloque" onclick="abrirMenu('menuEstadistica')">
+            <span>ESTADÍSTICA</span>
+            <span>▼</span>
+        </div>
+
+        <div id="menuEstadistica" class="submenu abierto">
+            <a href="{{ url_for('ingreso_vehiculos') }}">Ingreso de vehículos</a>
+            <a href="{{ url_for('estado_vehiculos') }}">Estado de vehículos</a>
+        </div>
+
+    </aside>
+
+    <main class="contenido">
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for mensaje in messages %}
+                    <div class="mensaje">{{ mensaje }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block contenido %}{% endblock %}
+
+    </main>
+
+</div>
+
+<script>
+function abrirMenu(id){
+    document.getElementById(id).classList.toggle("abierto");
+}
+</script>
+
+</body>
+</html>

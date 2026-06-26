@@ -1,0 +1,431 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f4f6;
+    color: #111827;
+}
+
+/* =========================
+   BARRA SUPERIOR
+========================= */
+
+.topbar {
+    height: 62px;
+    background: #f06b2b;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+.topbar-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.topbar-title i {
+    font-size: 30px;
+}
+
+.btn-salir {
+    color: white;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.65);
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-salir:hover {
+    background: rgba(255,255,255,0.18);
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.contenedor-panel {
+    display: flex;
+    min-height: calc(100vh - 62px);
+}
+
+/* =========================
+   MENÚ LATERAL
+========================= */
+
+.sidebar {
+    width: 285px;
+    background: linear-gradient(180deg, #f06b2b, #ff7a2c);
+    padding: 38px 22px;
+    color: white;
+}
+
+.menu-bloque {
+    background: #86c943;
+    border-radius: 8px;
+    padding: 15px 17px;
+    margin-bottom: 12px;
+    font-size: 17px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+}
+
+.menu-bloque span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menu-bloque i {
+    font-size: 19px;
+}
+
+.submenu {
+    display: none;
+    margin-bottom: 28px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.submenu.abierto {
+    display: block;
+}
+
+.submenu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 14px 18px;
+    background: rgba(166, 66, 10, 0.35);
+    border-left: 5px solid transparent;
+}
+
+.submenu a:hover {
+    background: rgba(122, 48, 8, 0.45);
+    border-left: 5px solid #86c943;
+}
+
+.submenu a i {
+    width: 18px;
+    text-align: center;
+}
+
+/* =========================
+   CONTENIDO
+========================= */
+
+.contenido {
+    flex: 1;
+    padding: 34px 48px;
+    background: linear-gradient(180deg, #ffffff, #f3f4f6);
+}
+
+.titulo-pagina,
+.titulo-verde,
+.page-title {
+    width: 80%;
+    margin: 0 auto 28px auto;
+    background: #76bd3f;
+    color: white;
+    padding: 18px;
+    border-radius: 9px;
+    font-size: 26px;
+    font-weight: 800;
+    text-align: center;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+
+.card-formulario,
+.tarjeta-formulario,
+.form-card {
+    width: 80%;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    padding: 32px 40px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+    border: 1px solid #dddddd;
+}
+
+.fila-form {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 19px;
+}
+
+.fila-form label {
+    font-weight: 800;
+    font-size: 16px;
+    color: #111827;
+}
+
+.fila-form input,
+.fila-form select,
+.fila-form textarea {
+    width: 100%;
+    background: #002766;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 15px;
+}
+
+.fila-form input::placeholder,
+.fila-form textarea::placeholder {
+    color: #c5ccda;
+}
+
+.fila-form textarea {
+    height: 95px;
+    resize: none;
+}
+
+.separador {
+    height: 1px;
+    background: #d6d6d6;
+    margin: 25px 0 22px 0;
+}
+
+.btn-guardar {
+    width: 48%;
+    margin: 0 auto;
+    background: #176df2;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+.btn-guardar:hover {
+    background: #075ee0;
+}
+
+/* =========================
+   MENSAJES
+========================= */
+
+.mensaje,
+.alerta,
+.mensaje-alerta {
+    width: 80%;
+    margin: 0 auto 18px auto;
+    background: #e1f5dc;
+    color: #247421;
+    border-left: 6px solid #5abf3a;
+    padding: 13px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* =========================
+   REPORTES
+========================= */
+
+.panel-filtros {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 7px 18px rgba(0,0,0,0.12);
+}
+
+.panel-filtros form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    align-items: end;
+}
+
+.panel-filtros label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.panel-filtros input,
+.panel-filtros select {
+    width: 100%;
+    background: #002766;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.panel-filtros button {
+    background: #176df2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botones-filtro {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-excel,
+.btn-limpiar,
+.btn-editar,
+.btn-eliminar {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    padding: 9px 13px;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.btn-excel {
+    background: #198754;
+    margin-bottom: 16px;
+}
+
+.btn-limpiar {
+    background: #777;
+}
+
+.btn-editar {
+    background: #0d6efd;
+}
+
+.btn-eliminar {
+    background: #dc3545;
+}
+
+.tabla-contenedor {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 7px 18px rgba(0,0,0,0.12);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #002766;
+    color: white;
+    padding: 12px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #dddddd;
+    text-align: center;
+}
+
+/* =========================
+   GRÁFICOS
+========================= */
+
+.tarjeta-grafico {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 7px 18px rgba(0,0,0,0.12);
+}
+
+.tarjeta-grafico h3 {
+    margin-top: 0;
+    color: #002766;
+    text-align: center;
+}
+
+.grid-graficos {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 24px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media screen and (max-width: 900px) {
+    .contenedor-panel {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .contenido {
+        padding: 24px;
+    }
+
+    .titulo-pagina,
+    .titulo-verde,
+    .page-title,
+    .card-formulario,
+    .tarjeta-formulario,
+    .form-card,
+    .mensaje {
+        width: 100%;
+    }
+
+    .fila-form {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .btn-guardar {
+        width: 100%;
+    }
+
+    .panel-filtros form {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-graficos {
+        grid-template-columns: 1fr;
+    }
+}
